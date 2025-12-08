@@ -29,15 +29,18 @@ function calcularPontuacao(cartas: Array<{naipe: string; valor: string}>): numbe
     }
   
     return pontuacao;
-  }
+}
   
   
 
 export default function Mao({cartas, titulo}: MaoPadrao) {
     return (
         <div className="mao">
-            <h3>{titulo}</h3>
-            <div className="cartas">
+            <div className="mao-header">
+                <h3>{titulo}</h3>
+                <span className="contador-cartas">{cartas.length} cartas</span>
+            </div>
+            <div className="cartas-container">
                 {cartas.map((carta, posicao) => (
                     <Carta
                         key = {posicao}
