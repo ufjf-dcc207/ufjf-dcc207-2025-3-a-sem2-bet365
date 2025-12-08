@@ -4,6 +4,15 @@ import Jogador from "./Jogador";
 import Controles from "./Controles";
 import Carta from "./Carta";
 
+function gerarCarta() {
+  const naipes = ['Copas', 'Espadas', 'Ouros', 'Paus'];
+  const valores = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  const naipe = naipes[Math.floor(Math.random() * naipes.length)];
+  const valor = valores[Math.floor(Math.random() * valores.length)];
+  return { naipe, valor };
+}
+
+
 function MesaBlackjack() {
 
     const cartasDealer = [
