@@ -3,6 +3,7 @@ import Mao from "./Mao";
 import Jogador from "./Jogador";
 import Controles from "./Controles";
 import Carta from "./Carta";
+import { useState } from "react";
 
 function gerarCarta() {
   const naipes = ['Copas', 'Espadas', 'Ouros', 'Paus'];
@@ -15,15 +16,15 @@ function gerarCarta() {
 
 function MesaBlackjack() {
 
-    const cartasDealer = [
+    const [cartasDealer, setCartasDealer] = useState([
         {naipe: 'Copas', valor: 'A'},
         {naipe: 'Espadas', valor: '8'}
-    ];
+    ]);
     
-    const cartasJogador = [
+    const [cartasJogador, setCartasJogador] = useState([
         {naipe: 'Ouros', valor: '10'},
         {naipe: 'Paus', valor: '7'}
-    ]
+    ]);
     return (
         <div className="mesa-blackjack">
             <h2>Sua Vez!</h2>
