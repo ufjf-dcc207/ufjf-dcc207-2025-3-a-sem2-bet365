@@ -1,14 +1,20 @@
 import "./Saldo.css"
 
-interface saldo {
+interface saldoProps {
     valor: number;
+    aposta: number;
+    onAdicionarSaldo: () => void;
 }
-function displaySaldo({ valor }: saldo) {
+
+function Saldo({ valor, aposta, onAdicionarSaldo }: saldoProps) {
     return (
         <div className="saldo-container">
-            <h3>Saldo: {valor}</h3>
-            <button className="botao-saldo">Adicionar Saldo</button>
+            <div className="saldo-info">
+                <h3>Saldo: R$ {valor}</h3>
+                <h3>Aposta: R$ {aposta}</h3>
+            </div>
+            <button className="botao-saldo" onClick={onAdicionarSaldo}>Adicionar Saldo</button>
         </div>
-    )
+    );
 }
-export default displaySaldo;
+export default Saldo;

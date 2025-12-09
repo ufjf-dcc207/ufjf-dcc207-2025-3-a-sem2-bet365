@@ -2,13 +2,30 @@ import "./Controles.css"
 import MesaBlackjack from "./MesaBlackjack";
 
 
+
 interface ControlesProps {
     titulo: string;
+    onPedirCarta: () => void;
+    onParar: () => void;
+    onDobrarAposta: () => void;
+    onNovoJogo: () => void;
+    jogadorVez: boolean;
+    jogoAtivo: boolean;
+    podeDobrar: boolean;
     maosJogador: { naipe: string; valor: string; }[][];
     setMaosJogador: (maos: { naipe: string; valor: string; }[][]) => void;
 }
 
-const Controles = ({ titulo, maosJogador, setMaosJogador }: ControlesProps) => {
+const Controles = ({ 
+    titulo, maosJogador, setMaosJogador,
+    onPedirCarta,
+    onParar,
+    onDobrarAposta,
+    onNovoJogo,
+    jogadorVez,
+    jogoAtivo,
+    podeDobrar
+}: ControlesProps) => {
 
     const addMao = () => {
         if (maosJogador.length < 4) {
@@ -28,10 +45,34 @@ const Controles = ({ titulo, maosJogador, setMaosJogador }: ControlesProps) => {
     return (
         <div className="controles">
             <h3>{titulo}</h3>
-            <div className="cartas">
-                <button className="botaocontrole">Pedir Carta</button>
-                <button className="botaocontrole">Parar</button>
-                <button className="botaocontrole">Dobrar Aposta</button>
+            <div className="botoes-controle">
+                <button 
+                    className="botaocontrole"
+                    onClick={onPedirCarta}
+                    disabled={!jogadorVez || !jogoAtivo}
+                >
+                    Pedir Carta
+                </button>
+                <button
+                    className="botaocontrole"
+                    onClick={onParar}
+                    disabled={!jogadorVez || !jogoAtivo}
+                >
+                    Parar
+                </button>
+                <button
+                    className="botaocontrole"
+                    onClick={onDobrarAposta}
+                    disabled={!jogadorVez || !jogoAtivo || !podeDobrar}
+                >
+                    Dobrar Aposta
+                </button>
+                <button 
+                    className="botaocontrole novo-jogo"
+                    onClick={onNovoJogo}
+                >
+                    Novo Jogo
+                </button>
             </div>
             <div className="addmao">
                 <button className="botaocontrole" onClick={addMao}>Adicionar Mão</button>

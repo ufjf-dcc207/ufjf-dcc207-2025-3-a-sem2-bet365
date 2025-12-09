@@ -1,9 +1,9 @@
 import "./Carta.css"
+
 interface CartaPadrao {
     naipe: string;
     valor: string; // As, rei, rainha, valete e números
     face_para_cima?: boolean;
-    valorblackjack?: number;
 }
 
 function getvalorDaCarta(valor: string): number {
@@ -20,9 +20,11 @@ function Carta({naipe, valor, face_para_cima = true}: CartaPadrao) {
     if (!face_para_cima)
         return <div className="carta para-baixo">verso da carta</div>;
 
+    const valorNumerico = getvalorDaCarta(valor);
+    const cor = (naipe === 'Copas' || naipe === 'Ouros') ? 'vermelho' : 'preto';
+    
     return (
-        <div className={"carta carta-" + naipe}>
-
+        <div className={`carta carta-${naipe} ${cor}`}>
             <div className="valor-carta valor-superior">{valor}</div>
             <div className="naipe-carta">
                 {naipe === 'Paus' && '♣'}
