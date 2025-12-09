@@ -22,10 +22,11 @@
 
 .maos {
     border-radius: 10px;
-    display: flex;
+
     flex-direction: row;
     gap: 10px;
-
+    color: gold;
+    font-size: 20px;
     padding: 20px;
     margin: 30px 0;
     min-height: auto;
@@ -44,6 +45,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
+    color: gold;
 }
 
 .titulo h3 {

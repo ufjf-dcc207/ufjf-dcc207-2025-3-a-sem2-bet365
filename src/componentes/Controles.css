@@ -28,5 +28,20 @@
 }
 
 .addmao {
-    background-color: darkgoldenrod;
+    padding: 5px 12px;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    color:black;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    opacity: 1;
+    transition: 0.2s;
+}
+
+.addmao:hover {
+    color: white;
+
+    transform: translateY(-2px);
 }
