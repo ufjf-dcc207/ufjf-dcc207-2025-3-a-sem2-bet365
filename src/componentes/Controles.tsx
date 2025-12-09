@@ -26,9 +26,6 @@ const Controles = ({
     podeDobrar,
     podeAdicionarMao
 }: ControlesProps) => {
-
-   
-
     return (
         <div className="controles">
             <h3>{titulo}</h3>
@@ -69,7 +66,7 @@ const Controles = ({
                     disabled={!podeAdicionarMao} 
                     style={{backgroundColor: podeAdicionarMao ? '#2196F3' : '#ccc', color: 'white'}}
                 >
-                    Adicionar Mão (+ R$ 10)
+                    Adicionar Mão
                 </button>
             </div>
         </div>

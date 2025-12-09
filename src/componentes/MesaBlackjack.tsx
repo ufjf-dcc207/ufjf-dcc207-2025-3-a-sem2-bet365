@@ -5,25 +5,14 @@ import Jogador from "./Jogador";
 import Controles from "./Controles";
 import Carta, { type CartaPadrao } from "./Carta";
 import Saldo from "./Saldo"
+import ModalAdicionarSaldo from "./ModalAdicionarSaldo";
 
 type CartaJogo = Omit<CartaPadrao, 'face_para_cima'>;
 
 function gerarCarta() {
   const naipes = ["Copas", "Espadas", "Ouros", "Paus"];
   const valores = [
-    "A",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "J",
-    "Q",
-    "K",
+    "A","2","3","4","5","6","7","8","9","10","J","Q","K",
   ];
   const naipe = naipes[Math.floor(Math.random() * naipes.length)];
   const valor = valores[Math.floor(Math.random() * valores.length)];
@@ -60,26 +49,15 @@ function calcularPontuacao(
 
 function MesaBlackjack() {
 
-    const [cartasDealer, setCartasDealer] = useState<CartaJogo[]>([
-        {naipe: 'Copas', valor: 'A'},
-        {naipe: 'Espadas', valor: '8'}
-    ]);
-    
-    //const [cartasJogador, setCartasJogador] = useState([
-    const [maosJogador, setMaosJogador] = useState<CartaJogo[][]>([
-        [
-            {naipe: 'Ouros', valor: '10'},
-            {naipe: 'Paus', valor: '7'}
-        ]
-    ]);
-
-
+    const [cartasDealer, setCartasDealer] = useState<CartaJogo[]>([]);
+    const [maosJogador, setMaosJogador] = useState<CartaJogo[][]>([[]]);
     const [maoAtual, setMaoAtual] = useState(0);
-    const [saldo, setSaldo] = useState(100);
-    const [aposta, setAposta] = useState(10);
-    const [jogadorVez, setJogadorVez] = useState(true);
-    const [jogoAtivo, setJogoAtivo] = useState(true);
+    const [saldo, setSaldo] = useState(0);
+    const [aposta, setAposta] = useState(0);
+    const [jogadorVez, setJogadorVez] = useState(false);
+    const [jogoAtivo, setJogoAtivo] = useState(false);
     const [mensagem, setMensagem] = useState('Sua Vez! Aposte e jogue!');
+    const [mostrarModalSaldo, setMostrarModalSaldo] = useState(false);
 
     // Obter a mão atual do jogador
     const cartasJogadorAtual: CartaJogo[] = maosJogador[maoAtual];
@@ -226,19 +204,53 @@ function MesaBlackjack() {
         }
     };
 
+    const abrirModalAdicionarSaldo = () => {
+      setMostrarModalSaldo(true);
+    };
+    
+    const adicionarSaldo = (valor: number) => {
+      if (valor > 0) {
+        setSaldo(saldo + valor);
+        setMostrarModalSaldo(false);
+        setMensagem(`R$ ${valor} adicionados ao saldo!`);
+      }
+    };  
+
   const novoJogo = () => {
-    if (saldo < aposta) {
+    if (saldo <= 0 && saldo < aposta) {
       alert("Saldo insuficiente para nova aposta!");
       return;
     }
 
-    setCartasDealer([gerarCarta(), gerarCarta()]);
-    setMaosJogador([[gerarCarta(), gerarCarta()]]);
+    const apostaInput = prompt(`Seu saldo: R$ ${saldo}\nQuanto deseja apostar? (mínimo: 10)`);
+    const apostaValor = parseInt(apostaInput || '0');
+    
+    if (isNaN(apostaValor) || apostaValor < 10 || apostaValor > saldo) {
+      alert("Aposta inválida! Mínimo: R$ 10 e não pode exceder seu saldo.");
+      return;
+    }
+
+    //reseta cartas
+    setCartasDealer([]);
+    setMaosJogador([[]]);
     setMaoAtual(0);
-    setAposta(10);
-    setJogadorVez(true);
-    setJogoAtivo(true);
-    setMensagem("Sua Vez! Adicione mãos ou jogue.");
+    setAposta(apostaValor);
+
+
+    setTimeout(() => {
+      setCartasDealer([gerarCarta(), gerarCarta()]);
+      setMaosJogador([[gerarCarta(), gerarCarta()]]);
+
+      setJogadorVez(true);
+      setJogoAtivo(true);
+      setMensagem("Sua Vez! Adicione mãos ou jogue.");
+    })
+
+    // setMaoAtual(0);
+  };
+
+  const fecharModal = () => {
+    setMostrarModalSaldo(false);
   };
 
   return (
@@ -246,10 +258,17 @@ function MesaBlackjack() {
       <div className="cabecalho-app">
         <Saldo
           valor={saldo}
-          onAdicionarSaldo={adicionarMao}
+          onAdicionarSaldo={abrirModalAdicionarSaldo}
           aposta={aposta * maosJogador.length}
         />
       </div>
+
+      {mostrarModalSaldo && (
+        <ModalAdicionarSaldo
+          onConfirmar={adicionarSaldo}
+          onCancelar={fecharModal}
+        />
+      )}
 
       <div className="mesa-blackjack">
         <div className="cabecalho-mesa">
