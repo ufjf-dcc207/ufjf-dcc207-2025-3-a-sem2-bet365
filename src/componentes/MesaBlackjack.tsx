@@ -108,25 +108,42 @@ function MesaBlackjack() {
         setCartasDealer(cartasNovasDealer);
 
         // Calcula resultado final somando/subtraindo todas as mãos
-        let lucroTotal = 0;
+        let lucroDaRodada = 0;
+        let vitorias = 0;
+        let derrotas = 0;
+        let empates = 0;
 
         
         maosJogador.forEach((mao) => {
         const ptsJogador = calcularPontuacao(mao);
             if (ptsJogador > 21) {
-                lucroTotal -= aposta;
-            } else if (pontuacaoDealer > 21 || ptsJogador > pontuacaoDealer) {
-                lucroTotal += aposta; 
-            } else if (pontuacaoDealer > ptsJogador) {
-                lucroTotal -= aposta; 
+                lucroDaRodada -= aposta; 
+                derrotas++;
+            } else {
+                if (pontuacaoDealer > 21) {
+                    lucroDaRodada += aposta;
+                    vitorias++;
+                } else if (ptsJogador > pontuacaoDealer) {
+                    lucroDaRodada += aposta;
+                    vitorias++;
+                } else if (pontuacaoDealer > ptsJogador) {
+                    lucroDaRodada -= aposta;
+                    derrotas++;
+                } else {
+                    empates++;
+                }
             }
         });
 
-        if (lucroTotal > 0) setMensagem(`Fim! Você ganhou R$ ${lucroTotal}`);
-        else if (lucroTotal < 0) setMensagem(`Fim! Você perdeu R$ ${Math.abs(lucroTotal)}`);
-        else setMensagem('Fim! Tudo empatado.');
+        setSaldo(prevSaldo => prevSaldo + lucroDaRodada);
 
-        setSaldo(prev => prev + lucroTotal);
+        if (lucroDaRodada > 0) {
+            setMensagem(`Fim! Lucro Total: R$ ${lucroDaRodada} (V:${vitorias} D:${derrotas} E:${empates})`);
+        } else if (lucroDaRodada < 0) {
+            setMensagem(`Fim! Prejuízo Total: R$ ${Math.abs(lucroDaRodada)} (V:${vitorias} D:${derrotas} E:${empates})`);
+        } else {
+            setMensagem(`Tudo empatado! Saldo não mudou. (V:${vitorias} D:${derrotas} E:${empates})`);
+        }
         setJogoAtivo(false);
     };
 
