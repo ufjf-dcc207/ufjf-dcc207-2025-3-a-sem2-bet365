@@ -4,11 +4,12 @@ import "./Mao.css"
 interface MaoPadrao {
     cartas: Array<{naipe: string; valor: string}>;
     titulo: string;
+    atual?: boolean;
 }
 
-export default function Mao({cartas, titulo}: MaoPadrao) {
+export default function Mao({cartas, titulo, atual}: MaoPadrao) {
     return (
-        <div className="mao">
+        <div className={`mao ${atual ? "maoAtual" : ""}`}>
             <h3>{titulo}</h3>
             <div className="cartas">
                 {cartas.map((carta, posicao) => (

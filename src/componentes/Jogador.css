@@ -1,0 +1,57 @@
+.CartasMao {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    padding: 20px;
+    margin: 30px 0;
+    min-height: auto;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid white;
+    transition: border 0.3 ease;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.CartasMaoAtual {
+    border-color: gold;
+    box-shadow: 0 0 15px goldenrod;
+}
+
+.maos {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    padding: 20px;
+    margin: 30px 0;
+    min-height: auto;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid white;
+    transition: border 0.3 ease;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.lista{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.titulo h3 {
+    align-items: center;
+    display: flex;
+    color: gold;
+    margin-bottom: 15px;
+    font-size: 24px;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.5);
+    text-align: center;
+}

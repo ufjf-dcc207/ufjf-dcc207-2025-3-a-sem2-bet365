@@ -14,10 +14,12 @@ export default function Jogador({ nome, cartas, maos, maoAtual }: JogadorProps) 
   return (
     <div className="jogador">
       <div className="maos">
+        <h3>{nome}</h3>
+        <div className="lista">
         {maos.map((mao, id) => (
           <div 
             key={id}
-            className="cartas">
+            className={`CartasMao ${id === maoAtual ? 'CartasMaoAtual' : ''}`} >
             {mao.map((carta, posicao) => (
               <Carta
                 key={posicao}
@@ -26,6 +28,7 @@ export default function Jogador({ nome, cartas, maos, maoAtual }: JogadorProps) 
             ))}
           </div>
         ))}
+        </div>
       </div>
     </div>
   );
