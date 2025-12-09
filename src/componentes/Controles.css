@@ -3,65 +3,80 @@
 } */
 
 .controles {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.3);
     padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
+    border-radius: 12px;
+    margin-top: 25px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
 }
 
 .controles h3 {
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     color: #ffd700;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
 }
 
 .botoes-controle {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 15px;
 }
 
 .botaocontrole {
-    background: linear-gradient(45deg, #FF5722, #FF9800);
-    padding: 5px 12px;
-    font-size: 18px;
-    letter-spacing: 0.5px;
-    color:black;
-    background-color: gold;
+    background: gold;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color:#333;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     font-weight: bold;
     text-transform: uppercase;
-    opacity: 1;
-    transition: 0.2s;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    min-width: 120px;
 }
 
-/* .botaocontrole:hover {
-    background-color: darkgoldenrod;
-    color: white;
+.botaocontrole:hover:not(:disabled) {
+    background: #ffdb4d;
     transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
-.botaocontrole:active {
+.botaocontrole:active:not(:disabled) {
     transform: translateY(1px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.addmao {
-    padding: 5px 12px;
-    font-size: 18px;
-    letter-spacing: 0.5px;
-    color:black;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    text-transform: uppercase;
-    opacity: 1;
-    transition: 0.2s;
+.botaocontrole:disabled {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
-.addmao:hover {
-    color: white;
+.novo-jogo {
+    background-color: #ff9800;
+    color: black;
+}
 
-    transform: translateY(-2px);
+.addmao {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.addmao button {
+    background-color: #2196F3; 
+    color: white;
+}
+
+.addmao button:hover:not(:disabled) {
+    background-color: #42A5F5;
 }
