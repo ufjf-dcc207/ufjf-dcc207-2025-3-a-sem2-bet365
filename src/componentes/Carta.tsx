@@ -1,6 +1,6 @@
 import "./Carta.css"
 
-interface CartaPadrao {
+export interface CartaPadrao {
     naipe: string;
     valor: string; // As, rei, rainha, valete e números
     face_para_cima?: boolean;
