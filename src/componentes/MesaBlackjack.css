@@ -4,23 +4,25 @@
     background: darkgreen;
     background-image: radial-gradient(circle, #108a4c 5%, #0a6135 70%);
     
-    padding: 60px 30px 30px 30px; 
+    padding: 80px 30px 40px 30px; 
     
     border-radius: 15px;
     color: white;
     text-align: center;
-    border: 10px solid #8B4513;
-    max-width: 800px;
-    margin: 0px auto;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 15px solid #8B4513;
+    max-width: 900px;
+    margin: 20px auto;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
 }
 
 
 .info-jogo h2 {
-  margin: 0 0 20px 0;
-  font-size: 1.8rem;
+  margin: 0 0 30px 0;
+  font-size: 2rem;
   color: #fff;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
 .pontuacao {

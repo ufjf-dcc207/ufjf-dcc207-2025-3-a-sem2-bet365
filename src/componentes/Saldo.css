@@ -1,34 +1,32 @@
 .saldo-container {
   
   position: absolute;
-  top: 15px;
-  right: 15px;
-  
-  
-  min-width: 140px;
-  padding: 8px 12px;
-  
-  
+  top: 20px;
+  right: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-end; 
-  background: rgba(0, 0, 0, 0.5); 
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6); 
+  padding: 10px 15px;
   border-radius: 8px;
-  border: 1px solid rgba(255, 215, 0, 0.4); 
+  border: 1px solid #ffd700; 
   color: white;
   z-index: 10; 
+  min-width: 150px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .saldo-info h3 {
-  margin: 2px 0;
+  margin: 4px 0;
   font-size: 0.9rem; 
   font-weight: normal;
   color: #ffd700;
 }
 
 .botao-saldo {
-  margin-top: 5px;
-  padding: 3px 8px;
+  margin-top: 8px;
+  padding: 4px 10px;
   font-size: 0.75rem;
   font-weight: bold;
   background-color: #ffd700;
