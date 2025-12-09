@@ -5,9 +5,10 @@ import MesaBlackjack from "./MesaBlackjack";
 interface ControlesProps {
     titulo: string;
     maosJogador: { naipe: string; valor: string; }[][];
+    setMaosJogador: (maos: { naipe: string; valor: string; }[][]) => void;
 }
 
-const Controles = ({ titulo, maosJogador}: ControlesProps) => {
+const Controles = ({ titulo, maosJogador, setMaosJogador }: ControlesProps) => {
 
     const addMao = () => {
         if (maosJogador.length < 4) {
@@ -15,6 +16,7 @@ const Controles = ({ titulo, maosJogador}: ControlesProps) => {
                 {naipe: 'Copas', valor: '5'},
                 {naipe: 'Espadas', valor: '6'}
             ];
+            setMaosJogador(maosJogador.concat([novaMao]));
         } else{
             alert("Limite máximo de 4 mãos atingido!");
         }
