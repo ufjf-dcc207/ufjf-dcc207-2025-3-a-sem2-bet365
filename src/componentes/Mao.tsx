@@ -1,38 +1,14 @@
-import Carta from "./Carta";
+import Carta, { type CartaPadrao } from "./Carta";
 import "./Mao.css"
 
+type CartaJogo = Omit<CartaPadrao, 'face_para_cima'>;
+
 interface MaoPadrao {
-    cartas: Array<{naipe: string; valor: string}>;
+    //cartas: Array<{naipe: string; valor: string}>;
+    cartas: CartaJogo[];
     titulo: string;
     atual?: boolean;
-}
-
-function calcularPontuacao(cartas: Array<{naipe: string; valor: string}>): number {
-    let pontuacao = 0;
-    let ases = 0;
-  
-    cartas.forEach(carta => {
-        if (carta.valor === 'A') {
-            ases += 1;
-        } else if (['K', 'Q', 'J'].includes(carta.valor)) {
-            pontuacao += 10;
-        } else {
-            pontuacao += parseInt(carta.valor);
-        }
-    });
-  
-    for (let i = 0; i < ases; i++) {
-        if (pontuacao + 11 <= 21) {
-            pontuacao += 11;
-        } else {
-            pontuacao += 1;
-        }
-    }
-  
-    return pontuacao;
-}
-  
-  
+}  
 
 export default function Mao({cartas, titulo}: MaoPadrao) {
     return (

@@ -3,8 +3,10 @@ import "./MesaBlackjack.css"
 import Mao from "./Mao";
 import Jogador from "./Jogador";
 import Controles from "./Controles";
-import Carta from "./Carta";
+import Carta, { type CartaPadrao } from "./Carta";
 import Saldo from "./Saldo"
+
+type CartaJogo = Omit<CartaPadrao, 'face_para_cima'>;
 
 function gerarCarta() {
   const naipes = ['Copas', 'Espadas', 'Ouros', 'Paus'];
@@ -43,39 +45,54 @@ function calcularPontuacao(cartas: Array<{ naipe: string; valor: string }>): num
 
 function MesaBlackjack() {
 
-    const [cartasDealer, setCartasDealer] = useState([
+    const [cartasDealer, setCartasDealer] = useState<CartaJogo[]>([
         {naipe: 'Copas', valor: 'A'},
         {naipe: 'Espadas', valor: '8'}
     ]);
     
-    const [cartasJogador, setCartasJogador] = useState([
-        {naipe: 'Ouros', valor: '10'},
-        {naipe: 'Paus', valor: '7'}
+    //const [cartasJogador, setCartasJogador] = useState([
+    const [maosJogador, setMaosJogador] = useState<CartaJogo[][]>([
+        [
+            {naipe: 'Ouros', valor: '10'},
+            {naipe: 'Paus', valor: '7'}
+        ]
     ]);
 
+
+    const [maoAtual, setMaoAtual] = useState(0);
     const [saldo, setSaldo] = useState(100);
     const [aposta, setAposta] = useState(10);
     const [jogadorVez, setJogadorVez] = useState(true);
     const [jogoAtivo, setJogoAtivo] = useState(true);
     const [mensagem, setMensagem] = useState('Sua Vez! Aposte e jogue!');
 
+    // Obter a mão atual do jogador
+    const cartasJogadorAtual: CartaJogo[] = maosJogador[maoAtual];
+
     //verificae vitória/derrota
     useEffect(() =>{
         if (!jogoAtivo) return;
         
-        const pontuacaoJogador = calcularPontuacao(cartasJogador);
+        const pontuacaoJogador = calcularPontuacao(cartasJogadorAtual);
         const pontuacaoDealer = calcularPontuacao(cartasDealer);
 
         if (pontuacaoJogador > 21) {
-            setMensagem('Estourou! Você perdeu');
-            setSaldo(saldo - aposta);
-            setJogoAtivo(false);
+            // caso estoure passa pra proxima mao (se tiver)
+            if (maoAtual < maosJogador.length -1) {
+                setMaoAtual(maoAtual+1);
+                setMensagem('Estourou na mão ${maoAtual + 1}. Você perdeu');
+            } else {
+                setMensagem('Estourou! Você perdeu');
+                setSaldo(saldo - aposta * maosJogador.length);
+                setJogoAtivo(false);
+            }
         } else if (pontuacaoJogador === 21) {
+            // se fez 21 passa pra proxima mao (se tiver)
             setMensagem('Blackjack! Você ganhou!');
-            setSaldo(saldo + aposta * 1.5);
+            setSaldo(saldo + aposta * 1.5 * maosJogador.length);
             setJogoAtivo(false);
         }
-    }, [cartasJogador]);
+    }, [cartasJogadorAtual, jogoAtivo, maoAtual, maosJogador, aposta, saldo, cartasDealer]);
 
     //logica para o dealer jogar
     const jogarDealer = () => {
@@ -90,18 +107,28 @@ function MesaBlackjack() {
 
         setCartasDealer(cartasNovasDealer);
 
-        const pontuacaoJogador = calcularPontuacao(cartasJogador);
+        let resultadoFinal = 0;
+        maosJogador.forEach(mao => {
+            const pontuacaoJogador = calcularPontuacao(mao);
 
-        if (pontuacaoDealer > 21 || pontuacaoJogador > pontuacaoDealer) {
+            if (pontuacaoJogador > 21) {
+                resultadoFinal -= aposta;
+            } else if (pontuacaoDealer > 21 || pontuacaoJogador > pontuacaoDealer) {
+                resultadoFinal += aposta;
+            } else if (pontuacaoDealer > pontuacaoJogador) {
+                resultadoFinal -= aposta;
+            }
+        });
+
+        if (resultadoFinal > 0) {
             setMensagem('Você ganhou!');
-            setSaldo(saldo + aposta);
-        } else if (pontuacaoDealer > pontuacaoJogador) {
+            setSaldo(saldo + resultadoFinal);
+        } else if (resultadoFinal < 0) {
             setMensagem('Dealer ganhou!');
-            setSaldo(saldo - aposta);
+            setSaldo(saldo + resultadoFinal); // resultadoFinal já é negativo
         } else {
             setMensagem('Empate!');
         }
-        
         setJogoAtivo(false);
     };
 
@@ -109,39 +136,60 @@ function MesaBlackjack() {
         if (!jogoAtivo || !jogadorVez) return;
         
         const novaCarta = gerarCarta();
-        setCartasJogador([...cartasJogador, novaCarta]);
+        const novasMaos = [...maosJogador];
+        novasMaos[maoAtual] = [...novasMaos[maoAtual], novaCarta];
+        setMaosJogador(novasMaos);
     };
 
     const parar = () => {
         if (!jogoAtivo || !jogadorVez) return;
 
-        setJogadorVez(false);
-        jogarDealer();
+        if (maoAtual < maosJogador.length - 1) {
+            setMaoAtual(maoAtual + 1);
+            setMensagem(`Mão ${maoAtual + 1} terminada. Próxima mão!`);
+        } else {
+            setJogadorVez(false);
+            jogarDealer();
+        }
     };
 
     const dobrarAposta = () => {
         if (!jogoAtivo || !jogadorVez || saldo < aposta * 2) return;
 
-        setAposta(aposta*2);
+        const novasMaos = [...maosJogador];
+        
         const novaCarta = gerarCarta();
-        setCartasJogador([...cartasJogador, novaCarta]);
-        setJogadorVez(false);
+        novasMaos[maoAtual] = [...novasMaos[maoAtual], novaCarta];
 
-        const pontuacao = calcularPontuacao([...cartasJogador, novaCarta]);
-        if (pontuacao <= 21) {
-          setTimeout(() => jogarDealer(), 500);
+        setAposta(aposta*2);
+        setMaosJogador(novasMaos);
+
+        const pontuacaoAtual = calcularPontuacao(novasMaos[maoAtual]);
+
+        if (maoAtual < maosJogador.length - 1) {
+            setMaoAtual(maoAtual + 1);
+        } else {
+            setJogadorVez(false);
+            if (pontuacaoAtual <= 21) {
+              setTimeout(() => jogarDealer(), 500);
+            }
         }
+
     };
 
-    //mudar este valor depois
-    //implementar a lógica correta para adicionar a quantidade de saldo que o jogador quiser
-    const adicionarSaldo = () => {
-        setSaldo(saldo + 50);
+    const adicionarMao = () => {
+        if (maosJogador.length < 4 && jogoAtivo && jogadorVez) {
+            const novaMao = [gerarCarta(), gerarCarta()];
+            setMaosJogador([...maosJogador, novaMao]);
+        } else if (maosJogador.length >= 4) {
+            alert("Limite máximo de 4 mãos atingido!");
+        }
     };
 
     const novoJogo = () => {
         setCartasDealer([gerarCarta(), gerarCarta()]);
-        setCartasJogador([gerarCarta(), gerarCarta()]);
+        setMaosJogador([[gerarCarta(), gerarCarta()]]);
+        setMaoAtual(0);
         setAposta(10);
         setJogadorVez(true);
         setJogoAtivo(true);
@@ -151,7 +199,11 @@ function MesaBlackjack() {
     return (
         <div className="mesa-blackjack">
             <h2>{mensagem}</h2>
-            <Saldo valor={saldo} onAdicionarSaldo={adicionarSaldo} aposta={aposta} />
+            {maosJogador.length > 1 && (
+                <div className="contador-maos">
+                    Mão {maoAtual + 1} de {maosJogador.length}
+                </div>
+            )}
 
             <div className="area-dealer">
                 <Mao cartas={cartasDealer} titulo="Dealer" />
@@ -159,23 +211,31 @@ function MesaBlackjack() {
             </div>
 
             <div className="area-jogador">
-                {<Jogador nome="Jogador" cartas={cartasJogador} maos={[]} />}
-                <div className="pontuacao">Pontuação: {calcularPontuacao(cartasJogador)}</div>
+                <Jogador 
+                    nome="Jogador" 
+                    cartas={cartasJogadorAtual}
+                    maos={maosJogador} 
+                    maoAtual={maoAtual} 
+                />
+                <div className="pontuacao">
+                    Pontuação (Mão {maoAtual+1}): {calcularPontuacao(cartasJogadorAtual)}
+                </div>
             </div>
 
-            {<Controles 
+            <Controles 
                 titulo="Controles"
                 onPedirCarta={pedirCarta}
                 onParar={parar}
                 onDobrarAposta={dobrarAposta}
                 onNovoJogo={novoJogo}
+                onAdicionarMao={adicionarMao}
                 jogadorVez={jogadorVez}
                 jogoAtivo={jogoAtivo}
-                podeDobrar={saldo >= aposta * 2} maosJogador={[]} setMaosJogador={function (maos: { naipe: string; valor: string; }[][]): void {
-                    throw new Error("Function not implemented.");
-                } }            />}
+                podeDobrar={saldo >= aposta * 2}
+                podeAdicionarMao={maosJogador.length < 4 && jogoAtivo && jogadorVez}           
+            />
         </div>
-    )
+    );
 }
 
 export default MesaBlackjack
