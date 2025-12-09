@@ -10,13 +10,16 @@ interface JogadorProps {
   maoAtual?: number;
 }
 
-export default function Jogador({ nome, cartas, maos, maoAtual }: JogadorProps) {
+export default function Jogador({ nome, cartas, maos = [], maoAtual }: JogadorProps) {
+  // Se maos estiver vazio, usa cartas como uma única mão
+  const maosParaMostrar = maos.length > 0 ? maos : [cartas];
+
   return (
     <div className="jogador">
       <div className="maos">
         <h3>{nome}</h3>
         <div className="lista">
-        {maos.map((mao, id) => (
+        {maosParaMostrar.map((mao, id) => (
           <div 
             key={id}
             className={`CartasMao ${id === maoAtual ? 'CartasMaoAtual' : ''}`} >
