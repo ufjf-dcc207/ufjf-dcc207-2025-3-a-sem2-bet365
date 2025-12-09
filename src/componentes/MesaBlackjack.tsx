@@ -159,20 +159,21 @@ function MesaBlackjack() {
             </div>
 
             <div className="area-jogador">
-                {/* <Jogador nome="Jogador" cartas={cartasJogador} /> */}
+                {<Jogador nome="Jogador" cartas={cartasJogador} maos={[]} />}
                 <div className="pontuacao">Pontuação: {calcularPontuacao(cartasJogador)}</div>
             </div>
 
-            {/* <Controles 
-                titulo="Controles" 
+            {<Controles 
+                titulo="Controles"
                 onPedirCarta={pedirCarta}
                 onParar={parar}
                 onDobrarAposta={dobrarAposta}
                 onNovoJogo={novoJogo}
                 jogadorVez={jogadorVez}
                 jogoAtivo={jogoAtivo}
-                podeDobrar={saldo >= aposta * 2}
-            />  */}
+                podeDobrar={saldo >= aposta * 2} maosJogador={[]} setMaosJogador={function (maos: { naipe: string; valor: string; }[][]): void {
+                    throw new Error("Function not implemented.");
+                } }            />}
         </div>
     )
 }
