@@ -7,7 +7,7 @@ interface ControlesProps {
     maosJogador: { naipe: string; valor: string; }[][];
 }
 
-const Controles = ({ titulo }: ControlesProps) => {
+const Controles = ({ titulo, maosJogador}: ControlesProps) => {
 
     const addMao = () => {
         if (maosJogador.length < 4) {
@@ -15,7 +15,6 @@ const Controles = ({ titulo }: ControlesProps) => {
                 {naipe: 'Copas', valor: '5'},
                 {naipe: 'Espadas', valor: '6'}
             ];
-            setMaosJogador([...maosJogador, novaMao]);
         } else{
             alert("Limite máximo de 4 mãos atingido!");
         }
@@ -33,7 +32,7 @@ const Controles = ({ titulo }: ControlesProps) => {
                 <button className="botaocontrole">Dobrar Aposta</button>
             </div>
             <div className="addmao">
-                <button className="botaocontrole" onClick={addmao}>Adicionar Mão</button>
+                <button className="botaocontrole" onClick={addMao}>Adicionar Mão</button>
             </div>
         </div>
     );

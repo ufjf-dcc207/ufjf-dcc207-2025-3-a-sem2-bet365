@@ -23,11 +23,10 @@ function MesaBlackjack() {
         <div className="mesa-blackjack">
             <h2>Sua Vez!</h2>
             <Mao cartas={cartasDealer} titulo="Dealer"></Mao>
-            <Jogador nome="Jogador" maos={maosJogador} />
+            <Jogador nome="Jogador" cartas={[]} maos={maosJogador} />
 
             <Controles titulo="Controles"
                 maosJogador={maosJogador}
-                setMaosJogador={setMaosJogador}
             />
 
         </div>

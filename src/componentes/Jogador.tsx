@@ -9,12 +9,9 @@ interface JogadorProps {
 export default function Jogador({ nome, cartas, maos }: JogadorProps) {
   return (
     <div className="jogador">
-      <div style={{display: "flex", flexDirection: "row", gap: "20px", justifyContent: "center", flexWrap: "wrap"}}>
         {maos.map((mao, index) => (
-          <Mao key={index} cartas={mao} titulo={`Mão ${index + 1}`} />
+          <Mao cartas={mao} titulo={`Mão ${index + 1}`} />
         ))}
-      </div>
-      <Mao cartas={cartas} titulo="Mão do Jogador" />
     </div>
   );
 }
