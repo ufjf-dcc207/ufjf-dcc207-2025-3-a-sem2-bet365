@@ -1,7 +1,11 @@
 .mesa-blackjack {
+    position: relative; 
+    
     background: darkgreen;
     background-image: radial-gradient(circle, #108a4c 5%, #0a6135 70%);
-    padding: 30px;
+    
+    padding: 60px 30px 30px 30px; 
+    
     border-radius: 15px;
     color: white;
     text-align: center;
@@ -9,4 +13,24 @@
     max-width: 800px;
     margin: 0px auto;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+
+.info-jogo h2 {
+  margin: 0 0 20px 0;
+  font-size: 1.8rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.pontuacao {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: rgba(0,0,0,0.5);
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    margin-top: 10px;
+    border: 1px solid #ffd700;
 }

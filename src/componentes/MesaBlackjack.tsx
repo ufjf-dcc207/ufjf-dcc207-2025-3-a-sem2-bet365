@@ -171,8 +171,11 @@ function MesaBlackjack() {
     
     return (
         <div className="mesa-blackjack">
-            <h2>{mensagem}</h2>
             <Saldo valor={saldo} onAdicionarSaldo={adicionarSaldo} aposta={aposta} />
+
+            <div className="info-jogo">
+                <h2>{mensagem}</h2>
+            </div>
 
             <div className="area-dealer">
                 <Mao cartas={cartasDealer} titulo="Dealer" />
