@@ -19,7 +19,6 @@ function App() {
     <div className='App'>
       <h1>♠️ Bem-vindo ao jogo de 21 ♣️</h1>
       <MesaBlackjack />
-      <Saldo valor={saldo} onAdicionarSaldo={adicionarSaldo} aposta={0} />
     </div>
   )
 }
