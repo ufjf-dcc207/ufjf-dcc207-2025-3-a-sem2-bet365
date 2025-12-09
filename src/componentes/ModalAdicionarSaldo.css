@@ -1,0 +1,146 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-adicionar-saldo {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    color: #333;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  .modal-adicionar-saldo h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+  }
+  
+  .valores-rapidos {
+    margin-bottom: 25px;
+  }
+  
+  .valores-rapidos p {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .botoes-rapidos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  
+  .botao-rapido {
+    padding: 12px;
+    border: 2px solid #ddd;
+    background: #f8f9fa;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+  }
+  
+  .botao-rapido:hover {
+    border-color: #4CAF50;
+    background: #e8f5e9;
+  }
+  
+  .botao-rapido:active {
+    transform: scale(0.98);
+  }
+  
+  .input-personalizado {
+    margin-bottom: 25px;
+  }
+  
+  .input-personalizado label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .input-com-simbolo {
+    display: flex;
+    align-items: center;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .simbolo-moeda {
+    background: #f0f0f0;
+    padding: 12px 15px;
+    font-weight: bold;
+    border-right: 2px solid #ddd;
+  }
+  
+  .input-com-simbolo input {
+    flex: 1;
+    border: none;
+    padding: 12px 15px;
+    font-size: 1.2rem;
+    outline: none;
+  }
+  
+  .input-com-simbolo input:focus {
+    background: #f9f9f9;
+  }
+  
+  .erro {
+    color: #e74c3c;
+    margin-top: 5px;
+    font-size: 0.9rem;
+  }
+  
+  .modal-botoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .botao-cancelar, .botao-confirmar {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.2s;
+  }
+  
+  .botao-cancelar {
+    background: #e0e0e0;
+    color: #333;
+  }
+  
+  .botao-cancelar:hover {
+    background: #d0d0d0;
+  }
+  
+  .botao-confirmar {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    color: white;
+  }
+  
+  .botao-confirmar:hover {
+    background: linear-gradient(45deg, #45a049, #3d8b40);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+  }
