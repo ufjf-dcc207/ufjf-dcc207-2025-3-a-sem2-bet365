@@ -36,15 +36,20 @@
     transition: 0.2s;
 }
 
-/* .botaocontrole:hover {
-    background-color: darkgoldenrod;
-    color: white;
+.botaocontrole:hover:not(:disabled) {
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
 }
 
-.botaocontrole:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+.botaocontrole:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: linear-gradient(45deg, #666, #888);
+}
+
+.novo-jogo {
+    background: linear-gradient(45deg, #4CAF50, #8BC34A);
+    grid-column: span 2;
 }
 
 .addmao {
