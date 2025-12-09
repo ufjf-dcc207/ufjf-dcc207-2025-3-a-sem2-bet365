@@ -1,7 +1,4 @@
 import "./Controles.css"
-import MesaBlackjack from "./MesaBlackjack";
-
-
 
 interface ControlesProps {
     titulo: string;
@@ -10,18 +7,15 @@ interface ControlesProps {
     onDobrarAposta: () => void;
     onNovoJogo: () => void;
     onAdicionarMao: () => void;
-
     jogadorVez: boolean;
     jogoAtivo: boolean;
     podeDobrar: boolean;
     podeAdicionarMao: boolean;
-
-    // maosJogador: { naipe: string; valor: string; }[][];
-    // setMaosJogador: (maos: { naipe: string; valor: string; }[][]) => void;
+    
 }
 
 const Controles = ({ 
-    titulo, //maosJogador, setMaosJogador,
+    titulo,
     onPedirCarta,
     onParar,
     onDobrarAposta,
@@ -33,20 +27,7 @@ const Controles = ({
     podeAdicionarMao
 }: ControlesProps) => {
 
-    // const addMao = () => {
-    //     if (maosJogador.length < 4) {
-    //         const novaMao = [
-    //             {naipe: 'Copas', valor: '5'},
-    //             {naipe: 'Espadas', valor: '6'}
-    //         ];
-    //         setMaosJogador(maosJogador.concat([novaMao]));
-    //     } else{
-    //         alert("Limite máximo de 4 mãos atingido!");
-    //     }
-            
-    // }
-
-
+   
 
     return (
         <div className="controles">
@@ -80,13 +61,15 @@ const Controles = ({
                     Novo Jogo
                 </button>
             </div>
+            
             <div className="addmao">
                 <button 
                     className="botaocontrole" 
                     onClick={onAdicionarMao}
-                    disabled={!podeAdicionarMao}
+                    disabled={!podeAdicionarMao} 
+                    style={{backgroundColor: podeAdicionarMao ? '#2196F3' : '#ccc', color: 'white'}}
                 >
-                    Adicionar Mão
+                    Adicionar Mão (+ R$ 10)
                 </button>
             </div>
         </div>

@@ -1,34 +1,44 @@
 .saldo-container {
-  position: fixed;
-  right: 24px;
-  top: 24px;
   
-
-  width: 360px;
-  height: auto;
-  padding: 8px 12px;
+  position: relative;
+  
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end; 
   justify-content: center;
 
-  font-size: 1rem;
-  font-weight: bold;
-  color: #fff;
-  background-color: #1976d2;
-  border: none;
+  background: darkgreen; 
+  background-image: radial-gradient(circle, #108a4c 5%, #0a6135 70%);
+  padding: 10px 20px;
   border-radius: 8px;
-  cursor: auto;
-  text-transform: uppercase;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  border: 1px solid #ffd700; 
+  color: white;
+  min-width: 180px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+.saldo-info h3 {
+  margin: 5px 0;
+  font-size: 0.95rem; 
+  font-weight: normal;
+  color: #ffd700;
+  letter-spacing: 0.5px;
 }
 
 .botao-saldo {
-  background-color: white;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-  transform: translateY(-2px);
+  margin-top: 8px;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  background-color: #ffd700;
+  color: #111;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.2s, opacity 0.2s;
 }
 
-.botao-saldo:active {
-  background-color: white;
+.botao-saldo:hover {
+  background-color: #ff9800;
 }
